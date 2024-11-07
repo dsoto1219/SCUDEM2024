@@ -9,8 +9,8 @@ def euclidean_distance(point1, point2):
                 (point1[2] - point2[2]) ** 2)
 
 
-"""Calculating Vertical Cross-section Area"""
 def cayley_menger_area_4points(a, b, c):
+    """Calculating Vertical Cross-section Area"""
     # Define the coordinates of the four vertices.
     points = [
         (a, b, c),

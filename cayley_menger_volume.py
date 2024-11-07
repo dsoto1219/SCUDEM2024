@@ -1,12 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 # Calculating the Volume
 def euclidean_distance(point1, point2):
     """ Calculate the Euclidean distance between two points """
     return np.sqrt((point1[0] - point2[0]) ** 2 + 
                    (point1[1] - point2[1]) ** 2 + 
                    (point1[2] - point2[2]) ** 2)
+
 
 def cayley_menger_volume(a, b, c):
     # Define the coordinates of five vertices
