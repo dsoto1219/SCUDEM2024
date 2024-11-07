@@ -23,16 +23,15 @@ DISTANCE_FROM_HUMAN = 20
 # Spear metrics
 m = 0.5 # spear's mass (kg)
 spear_length: float = 1 # spear's length (m)
-# All metrics in cm
 # See "Shape of Spear.docx" to see conceptual idea of a, b, and c
-METRICS = {
-    "a" : 4, # length
-    "b" : 1, # height / 2
-    "c" : 1, # depth / 2
-}
-# Dividing by 10000, since each area is in cm^2 but we want m^2
-Ax = cayley_menger_area_4points(*METRICS.values()) / 10000
-Ay = cayley_menger_area_3points(METRICS["a"], METRICS["c"]) / 10000
+# all measured in cm
+a = 4
+b = 1
+c = 1
+# Horizontal and vertical Cross-section areas (cm)
+# Dividing by 10000 since each area is in cm^2 but we want m^2
+Ax = cayley_menger_area_4points(a, b, c) / 10000
+Ay = cayley_menger_area_3points(a, c) / 10000
 
 def spear_trajectory(initial_velocity: tuple, dt=0.01) -> tuple[list[float], list[float]]:
     """
@@ -70,7 +69,8 @@ def spear_trajectory(initial_velocity: tuple, dt=0.01) -> tuple[list[float], lis
             or (s_x[-1] < DISTANCE_FROM_HUMAN and s_y[-1] < MAMMOTH_HEIGHT)
         ) and (s_x[-1] > DISTANCE_FROM_HUMAN / 2):
             final_height = 0
-        elif (s_x[-1] >= DISTANCE_FROM_HUMAN) and (s_y[-1] < MAMMOTH_HEIGHT and s_y[-1] > 0):
+        elif (s_x[-1] >= DISTANCE_FROM_HUMAN) and ((s_y[-1] < MAMMOTH_HEIGHT) and s_y[-1] > 0 
+            and s_x[-1] < DISTANCE_FROM_HUMAN + MAMMOTH_WIDTH):
             break
 
     return s_x, s_y
