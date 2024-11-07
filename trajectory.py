@@ -40,7 +40,8 @@ def spear_trajectory(initial_velocity: tuple, dt=0.01) -> tuple[list[float], lis
     """
     global HUMAN_HEIGHT, MAMMOTH_HEIGHT
 
-    v = [initial_velocity]
+    v_x = initial_velocity[0]
+    v_y = initial_velocity[1]
     # The spear should pass the y-position of the mammoth once before the while loop
     # ends
     is_second_pass: bool = False
@@ -51,15 +52,14 @@ def spear_trajectory(initial_velocity: tuple, dt=0.01) -> tuple[list[float], lis
 
     while (s_y[-1] >= final_height) or (not is_second_pass):
         # update Fdx and Fdy on each iteration
-        Fdx = 0.5 * C_d * v[-1][0]**2 * rho * Ax
-        Fdy = 0.5 * C_d * v[-1][1]**2 * rho * Ay + m * g
+        Fdx = 0.5 * C_d * v_x**2 * rho * Ax
+        Fdy = 0.5 * C_d * v_y**2 * rho * Ay + m * g
 
-        v.append(
-            (v[-1][0] - Fdx/m * dt, 
-             v[-1][1] - Fdy/m * dt))
+        v_x -= Fdx/m * dt
+        v_y -= Fdy/m * dt
         
-        s_x.append(s_x[-1] + v[-1][0] * dt)
-        s_y.append(s_y[-1] + v[-1][1] * dt)
+        s_x.append(s_x[-1] + v_x * dt)
+        s_y.append(s_y[-1] + v_y * dt)
 
         if s_y[-1] >= MAMMOTH_HEIGHT:
             is_second_pass = True
