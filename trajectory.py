@@ -34,13 +34,13 @@ METRICS = {
 Ax = cayley_menger_area_4points(*METRICS.values()) / 10000
 Ay = cayley_menger_area_3points(METRICS["a"], METRICS["c"]) / 10000
 
-def trajectory(vi: tuple, dt=0.01) -> tuple[list[float], list[float]]:
+def spear_trajectory(initial_velocity: tuple, dt=0.01) -> tuple[list[float], list[float]]:
     """
     Returns list of x, y positions that traces the path of the thrown spear.
     """
     global HUMAN_HEIGHT, MAMMOTH_HEIGHT
 
-    v = [vi]
+    v = [initial_velocity]
     # The spear should pass the y-position of the mammoth once before the while loop
     # ends
     is_second_pass: bool = False
@@ -77,7 +77,7 @@ def trajectory(vi: tuple, dt=0.01) -> tuple[list[float], list[float]]:
 
 
 if __name__ == "__main__":
-    s_x, s_y = trajectory(vi)
+    s_x, s_y = spear_trajectory(vi)
     plt.plot(s_x, s_y)
     plt.xlim(0)
     plt.xlabel('Horizontal position')
