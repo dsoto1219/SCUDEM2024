@@ -47,8 +47,9 @@ def trajectory(vi: tuple, dt=0.01) -> tuple[list[float], list[float]]:
     # lists of x and y positions
     s_x = [0]
     s_y = [HUMAN_HEIGHT]
+    final_height = MAMMOTH_HEIGHT
 
-    while (s_y[-1] >= MAMMOTH_HEIGHT) or (not is_second_pass):
+    while (s_y[-1] >= final_height) or (not is_second_pass):
         # update Fdx and Fdy on each iteration
         Fdx = 0.5 * C_d * v[-1][0]**2 * rho * Ax
         Fdy = 0.5 * C_d * v[-1][1]**2 * rho * Ay + m * g
@@ -62,6 +63,15 @@ def trajectory(vi: tuple, dt=0.01) -> tuple[list[float], list[float]]:
 
         if s_y[-1] >= MAMMOTH_HEIGHT:
             is_second_pass = True
+        
+        # it just works
+        if (
+            (s_x[-1] > DISTANCE_FROM_HUMAN + MAMMOTH_WIDTH and s_y[-1] > MAMMOTH_HEIGHT)
+            or (s_x[-1] < DISTANCE_FROM_HUMAN and s_y[-1] < MAMMOTH_HEIGHT)
+        ) and (s_x[-1] > DISTANCE_FROM_HUMAN / 2):
+            final_height = 0
+        elif (s_x[-1] >= DISTANCE_FROM_HUMAN) and (s_y[-1] < MAMMOTH_HEIGHT and s_y[-1] > 0):
+            break
 
     return s_x, s_y
 
