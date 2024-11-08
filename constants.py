@@ -17,10 +17,11 @@ Things that stay constant throughout the scripts,
 but we can change beforehand.
 """
 # Spear metrics
-m = 0.5 # spear's mass (kg)
 spear_length: float = 1 # spear's length (m)
 # See "Shape of Spear.docx" to see conceptual idea of a, b, and c
 # all measured in cm
+# # density of common rock: https://www.eoas.ubc.ca/courses/eosc350/content/foundations/properties/density.htm
+rock_density = 2650 # in kg/m^3
 a = 4
 b = 1
 c = 1
@@ -32,3 +33,4 @@ HUMAN_HEIGHT = 1.8
 MAMMOTH_HEIGHT = 3.5
 MAMMOTH_WIDTH = MAMMOTH_HEIGHT * 1.25
 DISTANCE_FROM_HUMAN = 20
+TO_PSI = 0.0001450377 # number obtained from https://www.unitconverters.net/pressure/pascal-to-psi.htm

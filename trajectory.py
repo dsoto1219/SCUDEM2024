@@ -1,16 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from horizontal_cross_section import cayley_menger_area_3points
-from vertical_cross_area import cayley_menger_area_4points
-from constants import C_d, rho, m, g, a, b, c, DISTANCE_FROM_HUMAN, MAMMOTH_HEIGHT, MAMMOTH_WIDTH, HUMAN_HEIGHT, vi
+from constants import C_d, rho, g, DISTANCE_FROM_HUMAN, MAMMOTH_HEIGHT, MAMMOTH_WIDTH, HUMAN_HEIGHT, vi
+import sys
 
 
-# Horizontal and vertical Cross-section areas (cm)
-# Dividing by 10000 since each area is in cm^2 but we want m^2
-Ax = cayley_menger_area_4points(a, b, c) / 10000
-Ay = cayley_menger_area_3points(a, c) / 10000
-
-def spear_trajectory(initial_velocity: tuple, dt=0.01) -> tuple[list[float], list[float]]:
+def spear_trajectory(initial_velocity: tuple, A: tuple, m, dt=0.01) -> tuple[list[float], list[float]]:
     """
     Returns list of x, y positions that traces the path of the thrown spear.
     """
@@ -26,10 +20,15 @@ def spear_trajectory(initial_velocity: tuple, dt=0.01) -> tuple[list[float], lis
     s_y = [HUMAN_HEIGHT]
     final_height = MAMMOTH_HEIGHT
 
+    Ax, Ay = A
     while (s_y[-1] >= final_height) or (not is_second_pass):
         # update Fdx and Fdy on each iteration
+        # try:
         Fdx = 0.5 * C_d * v_x**2 * rho * Ax
         Fdy = 0.5 * C_d * v_y**2 * rho * Ay + m * g
+        # except FloatingPointError:
+        #     print(Fdx, Fdy, v_y, Ay, m)
+        #     sys.exit()
 
         v_x -= Fdx/m * dt
         v_y -= Fdy/m * dt
