@@ -2,32 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from horizontal_cross_section import cayley_menger_area_3points
 from vertical_cross_area import cayley_menger_area_4points
+from constants import C_d, rho, m, g, a, b, c, DISTANCE_FROM_HUMAN, MAMMOTH_HEIGHT, MAMMOTH_WIDTH, HUMAN_HEIGHT, vi
 
 
-### Constants ###
-C_d = 0.5 # Drag coefficient/constant, unitless
-# velocities, (x, y) pairs resp. (m/s)
-rho = 1.225 # air density (kg/m^3)
-g = 9.80665 # gravitational constant (m/s^2)
-
-
-### Initial conditions ###
-THETA: float = np.radians(45) # angle of the thrown spear
-vi: tuple = (15*np.cos(THETA), 15*np.sin(THETA))
-threshold: float = 3.447379e+6
-# All distances (including height and width) measured in m
-HUMAN_HEIGHT = 1.8
-MAMMOTH_HEIGHT = 3.5
-MAMMOTH_WIDTH = MAMMOTH_HEIGHT * 1.25
-DISTANCE_FROM_HUMAN = 20
-# Spear metrics
-m = 0.5 # spear's mass (kg)
-spear_length: float = 1 # spear's length (m)
-# See "Shape of Spear.docx" to see conceptual idea of a, b, and c
-# all measured in cm
-a = 4
-b = 1
-c = 1
 # Horizontal and vertical Cross-section areas (cm)
 # Dividing by 10000 since each area is in cm^2 but we want m^2
 Ax = cayley_menger_area_4points(a, b, c) / 10000
