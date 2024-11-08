@@ -1,4 +1,5 @@
-from trajectory import vi, m, spear_trajectory, threshold, a, b
+from constants import vi, m, threshold, a, b
+from trajectory import spear_trajectory
 
 
 def lethality(vi) -> float:

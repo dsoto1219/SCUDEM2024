@@ -24,7 +24,6 @@ spear_length: float = 1 # spear's length (m)
 a = 4
 b = 1
 c = 1
-
 THETA: float = np.radians(45) # angle of the thrown spear
 vi: tuple = (15*np.cos(THETA), 15*np.sin(THETA))
 threshold: float = 3.447379e+6
