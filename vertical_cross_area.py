@@ -39,6 +39,9 @@ def cayley_menger_area_4points(a, b, c):
     area = np.sqrt(area_squared)
     
     return area
+    
+areas_array = []
+a_values, b_values, c_values = [], [], []
 
 
 if __name__ == "__main__":
@@ -49,6 +52,7 @@ if __name__ == "__main__":
         for b in range(0, 51, step):
             for c in range(0, 51, step):
                 area = cayley_menger_area_4points(a, b, c)
+                areas_array.append(area)
                 a_values.append(a)
                 b_values.append(b)
                 c_values.append(c)
