@@ -14,7 +14,7 @@ g = 9.80665 # gravitational constant (m/s^2)
 ### Initial conditions ###
 THETA: float = np.radians(45) # angle of the thrown spear
 vi: tuple = (15*np.cos(THETA), 15*np.sin(THETA))
-threshold: float = 1
+threshold: float = 3.447379e+6
 # All distances (including height and width) measured in m
 HUMAN_HEIGHT = 1.8
 MAMMOTH_HEIGHT = 3.5
@@ -72,12 +72,13 @@ def spear_trajectory(initial_velocity: tuple, dt=0.01) -> tuple[list[float], lis
         elif (s_x[-1] >= DISTANCE_FROM_HUMAN) and ((s_y[-1] < MAMMOTH_HEIGHT) and s_y[-1] > 0 
             and s_x[-1] < DISTANCE_FROM_HUMAN + MAMMOTH_WIDTH):
             break
-
-    return s_x, s_y
+    v_fx = v_x
+    v_fy = v_y
+    return s_x, s_y, v_fx, v_fy
 
 
 if __name__ == "__main__":
-    s_x, s_y = spear_trajectory(vi)
+    s_x, s_y, _, _ = spear_trajectory(vi)
     plt.plot(s_x, s_y)
     plt.xlim(0)
     plt.xlabel('Horizontal position')
