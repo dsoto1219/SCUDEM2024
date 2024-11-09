@@ -42,9 +42,9 @@ def cayley_menger_volume(a, b, c):
     volume = np.sqrt(volume_squared)
     
     return volume
-volumes_array = []
 
 if __name__ == "__main__":
+    volumes_array = []
     # Iterate over all combinations of a, b, and c in the range [0, 50] with a step size of 5
     a_values, b_values, c_values, volumes = [], [], [], []
     step = 5

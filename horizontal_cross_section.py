@@ -35,9 +35,9 @@ def cayley_menger_area_3points(a, c):
     area = np.sqrt(area_squared)
     
     return area
-Hareas_array = []
 
 if __name__ == "__main__":
+    Hareas_array = []
     # Iterate over all combinations of a and c in the range [0, 50] with a step size of 5
     a_values, c_values, areas = [], [], []
     step = 5

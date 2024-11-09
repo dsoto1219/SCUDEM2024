@@ -2,7 +2,7 @@ from constants import vi, threshold, a, b, c, TO_PSI, DISTANCE_FROM_HUMAN
 from trajectory import spear_trajectory
 
 
-def lethality(vi, v_fx, v_fy, mass) -> float:
+def lethality(v_fx, v_fy, mass) -> float:
     """
     Returns 1 if the spear throw will kill the mammoth;
     returns float between 0 and 1 otherwise, giving

@@ -33,18 +33,18 @@ def cayley_menger_area_4points(a, b, c):
     
     # Calculate the Cayley-Menger determinant to find the area
     determinant = np.linalg.det(D)
-    area_squared = ((-1) ** (n + 1) / (2 ** (n-2) * (np.math.factorial(n-2) ** 2))) * determinant
+    area_squared = (((-1) ** (n + 1)) / (2 ** (n-2) * (np.math.factorial(n-2) ** 2))) * determinant
     if area_squared < 0:
         area_squared = 0  # Handle potential negative values caused by floating-point precision errors.
     area = np.sqrt(area_squared)
     
     return area
-    
-areas_array = []
-a_values, b_values, c_values = [], [], []
 
 
 if __name__ == "__main__":
+    areas_array = []
+    a_values, b_values, c_values = [], [], []
+
     # Iterate over all combinations of a, b, and c in the range [0, 50] with a step size of 5.
     a_values, b_values, c_values, areas = [], [], [], []
     step = 5
