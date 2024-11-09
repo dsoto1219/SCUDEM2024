@@ -19,7 +19,7 @@ for a, b, c in tqdm(itertools.product(range(1, N+1, step), repeat=3)):
     # Dividing by 10000 since each area is in cm^2 but we want m^2
     Ax = 2b*2c
     Ay = ac
-    volume = cayley_menger_volume(a, b, c)
+    volume = 4abc/3
     if 0 in {volume, Ax, Ay}:
         continue
     A = (Ax, Ay)
