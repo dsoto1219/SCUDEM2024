@@ -17,11 +17,10 @@ lethalities = [] #0] * (N/step)**3
 for a, b, c in tqdm(itertools.product(range(1, N+1, step), repeat=3)):
     # Horizontal and vertical Cross-section areas (cm)
     # Dividing by 10000 since each area is in cm^2 but we want m^2
-    # Ax = cayley_menger_area_4points(a, b, c) / 10000
-    Ax = 0.0004
-    Ay = cayley_menger_area_3points(a, c) / 10000
-    # volume = cayley_menger_volume(a / 100, b / 100, c / 100) # in m^3
-    volume = ((2*b) * (2*c) * a) / 3 / 1e+6
+    Ax = (2*b) * (2*c)
+    Ay = a * c
+    # vol = length * width * height / 3
+    volume = (a * (2*b) * (2*c)) / 3
     if 0 in {volume, Ax, Ay}:
         continue
     A = (Ax, Ay)
