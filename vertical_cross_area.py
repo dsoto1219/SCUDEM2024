@@ -40,7 +40,6 @@ def cayley_menger_area_4points(a, b, c):
     
     return area
 
-
 if __name__ == "__main__":
     areas_array = []
     a_values, b_values, c_values = [], [], []

@@ -1,14 +1,12 @@
 import matplotlib.pyplot as plt
-import numpy as np
-from constants import C_d, rho, g, DISTANCE_FROM_HUMAN, MAMMOTH_HEIGHT, MAMMOTH_WIDTH, HUMAN_HEIGHT, vi
-import sys
+from constants import C_d, rho, g, DISTANCE_FROM_HUMAN, MAMMOTH_HEIGHT, MAMMOTH_WIDTH, HUMAN_HEIGHT
 
 
-def spear_trajectory(initial_velocity: tuple, A: tuple, m, dt=0.01) -> tuple[list[float], list[float]]:
+def spear_trajectory(initial_velocity: tuple, A: tuple, m, dt=1e-4) -> tuple[list[float], list[float]]:
     """
     Returns list of x, y positions that traces the path of the thrown spear.
     """
-    global HUMAN_HEIGHT, MAMMOTH_HEIGHT
+    global HUMAN_HEIGHT, MAMMOTH_HEIGHT, DISTANCE_FROM_HUMAN, MAMMOTH_WIDTH
 
     v_x = initial_velocity[0]
     v_y = initial_velocity[1]
@@ -21,15 +19,16 @@ def spear_trajectory(initial_velocity: tuple, A: tuple, m, dt=0.01) -> tuple[lis
     final_height = MAMMOTH_HEIGHT
 
     Ax, Ay = A
-    while (s_y[-1] >= final_height) or (not is_second_pass):
+    while ((s_y[-1] >= final_height) or (not is_second_pass) and s_y[-1] > 0):
         # update Fdx and Fdy on each iteration
-        # try:
-        Fdx = 0.5 * C_d * v_x**2 * rho * Ax
-        Fdy = 0.5 * C_d * v_y**2 * rho * Ay + m * g
-        # except FloatingPointError:
-        #     print(Fdx, Fdy, v_y, Ay, m)
-        #     sys.exit()
+    #print(f'm: {m}, Ax: {Ax}, Ay: {Ay}')
+    #for _ in range(100):
+        Fdx = 0.5 * C_d * rho * v_x**2 * Ax
+        Fdy = m * g + 0.5 * C_d * rho * v_y**2 * Ay 
 
+        # print(f'{Fdx=}, {Fdy=}, {v_x=}, {v_y=}')
+        # print(f'sx: {s_x[-1]}, sy: {s_y[-1]}')
+    
         v_x -= Fdx/m * dt
         v_y -= Fdy/m * dt
         
@@ -50,16 +49,16 @@ def spear_trajectory(initial_velocity: tuple, A: tuple, m, dt=0.01) -> tuple[lis
             break
     v_fx = v_x
     v_fy = v_y
-    return s_x, s_y, v_fx, v_fy
+    return s_x, s_y, v_fx, v_fy, final_height
 
 
-if __name__ == "__main__":
-    s_x, s_y, _, _ = spear_trajectory(vi)
-    plt.plot(s_x, s_y)
-    plt.xlim(0)
-    plt.xlabel('Horizontal position')
-    plt.ylim(0)
-    plt.ylabel('Vertical position')
-    plt.title("Position of spear after being thrown at Mammoth")
-    plt.axhline(MAMMOTH_HEIGHT, color='r')
-    plt.show()
+    if __name__ == "__name__":
+        ...
+        # plt.plot(s_x, s_y)
+        # plt.xlim(0)
+        # plt.xlabel('Horizontal position')
+        # plt.ylim(0)
+        # plt.ylabel('Vertical position')
+        # plt.title("Position of spear after being thrown at Mammoth")
+        # plt.axhline(MAMMOTH_HEIGHT, color='r')
+        # plt.show()
