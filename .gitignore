@@ -1,4 +1,7 @@
 /media
+*.png
+thrown_results.txt
+charging_results.txt
 
 ## Manim gitignore
 
