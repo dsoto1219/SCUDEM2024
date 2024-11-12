@@ -6,14 +6,10 @@ from SALib.analyze import sobol
 
 ### CHARGING PROBLEM
 charging_problem = {
-    'num_vars' : 5,
-    'names' : ['a', 'b', 'c',
-               'Mammoth_mass',
+    'num_vars' : 2,
+    'names' : ['Mammoth_mass',
                'vf'],
-    'bounds' : [[1, 50],
-                [1, 50],
-                [1, 50],
-                [5500, 7300],
+    'bounds' : [[5500, 7300],
                 [5, 10]]
 }
 
@@ -23,7 +19,7 @@ param_values = saltelli.sample(charging_problem, 2 ** 15)
 
 charging_energies = np.zeros(param_values.shape[0])
 
-for i, (a, b, c, M, vf) in tqdm(enumerate(param_values)):
+for i, (M, vf) in tqdm(enumerate(param_values)):
     Ekf = 0.5 * M * vf**2
     charging_energies[i] = Ekf
 
@@ -54,4 +50,4 @@ axs.set_ylabel('Sensitivity Index')
 axs.set_title('Sobol Sensitivity Indices for Charging Mammoth Model')
 axs.legend()
 
-plt.show()
+plt.savefig("charging_model.png")

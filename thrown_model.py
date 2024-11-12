@@ -24,7 +24,6 @@ throw_problem = {
                 [15, 30]]
 }
 
-
 M = (5500 + 7300) / 2 
 vf = 8.49376
 Ekf = 0.5 * M * vf**2
@@ -55,6 +54,15 @@ print(len(thrown_energies))
 if all(x == -1 for x in thrown_energies):
     print("Oh no!")
 
+with open("thrown_results.txt", "w") as f:
+    # get rid of all -1 entries
+    non_trivial_thrown_energies = [x for x in thrown_energies if x != -1]
+    f.write(f"{thrown_energies}\n")
+    f.write(f"{non_trivial_thrown_energies}\n")
+    f.write(f"{min(non_trivial_thrown_energies)/1000=} kJ\n")
+    f.write(f"{max(non_trivial_thrown_energies)/1000=} kJ\n")
+    f.write(f"average(non_trivial_thrown_energies): {sum(non_trivial_thrown_energies)/1000 / len(non_trivial_thrown_energies)} kJ")
+
 Si = sobol.analyze(throw_problem, thrown_energies, print_to_console=True)
 
 # Extract the sensitivity indices
@@ -82,7 +90,7 @@ axs.set_ylabel('Sensitivity Index')
 axs.set_title('Sobol Sensitivity Indices for Thrown Spear Model')
 axs.legend()
 
-plt.show()
+plt.savefig("thrown_model.png")
 
 
 # charging_lethalities = []
